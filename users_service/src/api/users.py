@@ -108,7 +108,7 @@ async def delete_user(
 
 
 
-@router.get("")
+@router.get("/me")
 async def get_me(
     user_id: UserIdDep
 ):

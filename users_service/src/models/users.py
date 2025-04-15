@@ -9,9 +9,9 @@ class UsersOrm(Base):
     name : Mapped[str] = mapped_column(nullable=False)
     email : Mapped[str] = mapped_column(nullable=False, unique=True)
     password : Mapped[str] = mapped_column(nullable=False)
-    team_name : Mapped[str] = mapped_column(nullable=False)
+    team_id : Mapped[int] = mapped_column(nullable=False)
     access_level: Mapped[str] = mapped_column(default="user")
     role: Mapped[str] = mapped_column(default="employee")
-    department_name: Mapped[str] = mapped_column()
+    department_id: Mapped[int] = mapped_column()
 
     

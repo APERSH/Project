@@ -11,6 +11,6 @@ class CalendarOrm(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(nullable=False)
     meeting_id: Mapped[int] = mapped_column(nullable=False)
-    user_email: Mapped[str] = mapped_column(nullable=False)
+    user_id: Mapped[int] = mapped_column(nullable=False)
     start_time: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     end_time: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)

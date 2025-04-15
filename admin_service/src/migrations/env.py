@@ -1,21 +1,23 @@
 from logging.config import fileConfig
 
+import logging
+
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
 
 from src.database import Base
-from src.models.teams import TeamsOrm
-from src.models.departments import DepartmentsOrm
-from src.models.news import NewsOrm
+from src.models import *
 from src.config import settings
+
+logger = logging.getLogger("alembic.env")
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
-config.set_main_option("sqlalchemy.url", f"{settings.DB_URL}?async_fallback=True" )
+
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 if config.config_file_name is not None:
@@ -45,10 +47,11 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    logger.info("Running migrations in OFFLINE mode")
     context.configure(
-        url=url,
+        url=settings.SYNC_DB_URL,
         target_metadata=target_metadata,
+        compare_type=True,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
     )
@@ -64,6 +67,7 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
+    logger.info("Running migrations in ONLINE mode")
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
